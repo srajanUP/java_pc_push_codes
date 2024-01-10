@@ -1,31 +1,21 @@
 package java_programs;
 
-public class Test {    
+
+
+public class Test { 
+
    public static void main(String[] args) {
-      System.out.println(circle.getArea());
+      int[] arr={8,6,3,5,6,8};
+     
+      int min=arr[0];
+
+      for (int i = 0; i < arr.length; i++) {
+         if(min>arr[i]){
+            min=arr[i];
+         }
          
+      }
+      System.out.println(min);
    }
-}
-
-
-
-class circle{
-   public static  int radius;
-
-   public circle(){
-      radius=1;
-   }
-
-   public circle(int radius){
-      circle.radius=radius;
-
-   }
-
-   public static double getArea(){
-      return radius*radius*Math.PI;
-   }
-
-   public static double getPeremeter(){
-      return 2*Math.PI*radius;
-   }
+    
 }
