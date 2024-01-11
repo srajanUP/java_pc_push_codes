@@ -1,4 +1,4 @@
-package DSA_LOVE_BABBAR;
+package DSA_In_java;
 
 public class Bubble_sort {
 

@@ -8,6 +8,13 @@
             "type": "java",
             "name": "mergeSortedArray",
             "request": "launch",
+            "mainClass": "DSA_In_java.mergeSortedArray",
+            "projectName": "java_3f78094"
+        },
+        {
+            "type": "java",
+            "name": "mergeSortedArray",
+            "request": "launch",
             "mainClass": "DSA_LOVE_BABBAR.mergeSortedArray",
             "projectName": "java_3f78094"
         },
