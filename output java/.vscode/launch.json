@@ -6,6 +6,20 @@
     "configurations": [
         {
             "type": "java",
+            "name": "Quick_Sort",
+            "request": "launch",
+            "mainClass": "DSA_In_java.Quick_Sort",
+            "projectName": "java_3f78094"
+        },
+        {
+            "type": "java",
+            "name": "MergeSort",
+            "request": "launch",
+            "mainClass": "DSA_In_java.MergeSort",
+            "projectName": "java_3f78094"
+        },
+        {
+            "type": "java",
             "name": "mergeSortedArray",
             "request": "launch",
             "mainClass": "DSA_In_java.mergeSortedArray",
