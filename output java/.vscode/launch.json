@@ -6,6 +6,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "heap_using_array",
+            "request": "launch",
+            "mainClass": "java_programs.heap_using_array",
+            "projectName": "java_3f78094"
+        },
+        {
+            "type": "java",
             "name": "Quick_Sort",
             "request": "launch",
             "mainClass": "DSA_In_java.Quick_Sort",
