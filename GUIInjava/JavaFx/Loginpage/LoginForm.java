@@ -1,5 +1,12 @@
 package GUIInjava.JavaFx.Loginpage;
 
+import java.sql.Connection;
+import java.sql.Date;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -168,23 +175,25 @@ public class LoginForm extends Application {
      
     // NEW WINDOW WHEN THE AUTHENTICATION IS COMPLETED
     private void openNewPane() {
-
-
-
+        
+        
+        
+        
+        
         //creating new stage
         Stage newStage = new Stage();
         newStage.setTitle("New Pane");
-
-
+        
+        
         //creating flowpane
         FlowPane flowPane=new FlowPane();
-
+        
         //adding text area for the database
-
-
-
-
-
+        
+        
+        
+        
+        
         //creating grid pane and setting it's position
         GridPane gridnew =new GridPane();
         // gridnew.setGridLinesVisible(true);
@@ -192,67 +201,67 @@ public class LoginForm extends Application {
         gridnew.setHgap(10);
         gridnew.setVgap(20);
         gridnew.setPadding(new Insets(0,0,0,10));
-
-
+        
+        
         //adding label for name
         Label NameLabel=new Label("Name");
         NameLabel.setFont(Font.font(STYLESHEET_CASPIAN,FontWeight.BOLD, null, 15));
         NameLabel.setPadding(new Insets(20, 0, 0, 0));
         gridnew.add(NameLabel, 0, 0);
-
-
+        
+        
         //adding the textbox for the Name
         TextField namTextField=new TextField();
         namTextField.setPromptText("Enter full name");
         gridnew.add(namTextField,0,1);
-
-
-
+        
+        
+        
         //adding label for contact
         Label ContactLabel=new Label("Contact");
         ContactLabel.setFont(Font.font(STYLESHEET_CASPIAN,FontWeight.BOLD, null, 15));
         gridnew.add(ContactLabel, 0, 2);
-
-
-
+        
+        
+        
         //adding the textbox for the Name
         TextField ContactTextField=new TextField();
         ContactTextField.setPromptText("Enter contact no.");
         gridnew.add(ContactTextField,0,3);
-
-
-
+        
+        
+        
         //adding label for contact
         Label EmailLabel=new Label("Email");
         EmailLabel.setFont(Font.font(STYLESHEET_CASPIAN,FontWeight.BOLD, null, 15));
         gridnew.add(EmailLabel, 0, 4);
-
-
-
+        
+        
+        
         //adding the textbox for the Name
         TextField EmailTextField=new TextField();
         EmailTextField.setPromptText("Enter the email");
         gridnew.add(EmailTextField,0,5);
-
-
-
+        
+        
+        
         //adding the label for the gender
         Label GenderLabel=new Label("Gender");
         GenderLabel.setFont(Font.font(STYLESHEET_CASPIAN,FontWeight.BOLD, null, 15));
         gridnew.add(GenderLabel, 0, 6);
-
-
+        
+        
         //adding choice box
         ChoiceBox<String> GenderChoicebox=new ChoiceBox<>();
         GenderChoicebox.getItems().addAll("MALE","FEMALE");
         gridnew.add(GenderChoicebox, 0, 7);
-
+        
 
         //adding label for datepicker
         Label DOBLabel=new Label("Date Of Birth (DOB) (DD/MM/YYYY)");
         DOBLabel.setFont(Font.font(STYLESHEET_CASPIAN,FontWeight.BOLD, null, 15));
         gridnew.add(DOBLabel, 0, 8);
-
+        
         //adding datepicker for DOB
         DatePicker DobdatePicker =new DatePicker();
         DobdatePicker.setOnAction(new EventHandler() {
@@ -264,21 +273,21 @@ public class LoginForm extends Application {
         DobdatePicker.setPromptText("Select your DOB");
         gridnew.add(DobdatePicker, 0, 9);
 
-
-
+        
+        
         //adding label for the stream
         Label StreamLabel=new Label("Stream");
         StreamLabel.setFont(Font.font(STYLESHEET_CASPIAN,FontWeight.BOLD, null, 15));
         gridnew.add(StreamLabel, 0, 10);
-
-
+        
+        
         //adding choicebox for the stream
         ChoiceBox<String> Streamchoicebox=new ChoiceBox<>();
         Streamchoicebox.getItems().addAll("TEXTILE","COMPUTER SCIENCE","MECHANICAL","CIVIL","INFORMATION TECHNOLOGY","PRODUCTION","ELECTRONICS");
         gridnew.add(Streamchoicebox, 0, 11);
-
-
-       
+        
+        
+        
         //creating add button
         Button Addbutton = new Button("ADD");
         Addbutton.setAlignment(Pos.CENTER_LEFT);
@@ -298,7 +307,7 @@ public class LoginForm extends Application {
         gridnew.add(editbuttinshbox, 0, 12);
         
         
-
+        
         //adding the text area to the new scene
         TextArea textArea=new TextArea();
         textArea.setPrefSize(800,500);
@@ -314,60 +323,86 @@ public class LoginForm extends Application {
                 textArea.appendText(namTextField.getText()+"  "+ContactTextField.getText()+"  "+EmailTextField.getText()+"  "+GenderChoicebox.getValue()+"  "+DobdatePicker.getValue()+"  "+Streamchoicebox.getValue()+"\n");
                 textArea.setFont(Font.font(STYLESHEET_CASPIAN, FontWeight.BOLD, null, 20));
                 
-
-               //creating the file and writing the data in the the .txt file.
-               try(PrintWriter write=new PrintWriter(new FileOutputStream("D:\\PROGRAMING_CODES\\java\\GUIInjava\\JavaFx\\Loginpage\\data.txt",true))){    //creating print writer object
-                write.write(namTextField.getText()+"  "+ContactTextField.getText()+"  "+EmailTextField.getText()+"  "+GenderChoicebox.getValue()+"  "+DobdatePicker.getValue()+"  "+Streamchoicebox.getValue()+"\n");
-                write.close();   // closing the file
+                try {
+                    //loading the jdbc driver for inputting and updating the data to the sql tables
+                    Class.forName("com.mysql.cj.jdbc.Driver");
                 }
-                catch(Exception e ){
-                    System.out.println(e);
+                
+                 catch (ClassNotFoundException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
                 }
-
+            
+                    //creating the connection
+                    try {
+                        Connection con = DriverManager.getConnection("jdbc:mysql://localhost/admin", "root", "Upsrajan@251");
+                        // Creating the statements
+                        PreparedStatement ps = con.prepareStatement("insert into datainput (Name, Email, Gender, Branch, BirthDate, Contacts) VALUES (?, ?, ?, ?, ?, ?)");
+                    
+                        // Set values using the actual data from the components
+                        ps.setString(1, namTextField.getText());
+                        ps.setString(2, EmailTextField.getText());
+                        ps.setString(3, GenderChoicebox.getValue());
+                        ps.setString(4, Streamchoicebox.getValue());
+                        ps.setDate(5, Date.valueOf(DobdatePicker.getValue())); // Assuming DobdatePicker is a DatePicker
+                        ps.setString(6, ContactTextField.getText());
+                    
+                        int rs = ps.executeUpdate();
+                    
+                        if (rs > 0) {
+                            textArea.appendText("Successful");
+                        } else {
+                            textArea.appendText("Unsuccessful");
+                        }
+                    
+                        // Closing the connection
+                        con.close();
+                    
+                    } catch (SQLException e) {
+                        // TODO Auto-generated catch block
+                        e.printStackTrace();
+                    }
+                    
             }
             
         });
-
-
-
+        
+        
+        
         //setting the delete button on action
         deleterec.setOnAction(new EventHandler<ActionEvent>() {
-
+            
             @Override
             public void handle(ActionEvent arg0) {
                 textArea.clear();
             }
             
         });;
-       
+        
         
         flowPane.getChildren().addAll(gridnew,textArea);
         
         Scene scenenew = new Scene(flowPane, 1100,600);
         newStage.setScene(scenenew);
-
-
+        
+        
         //setting title to the new scene
         newStage.setTitle("Data Input");
         newStage.setResizable(false);
-
-
+        
+        
         //adding the icon to the application
         try {
             newStage.getIcons().add(new Image("D:\\PROGRAMING_CODES\\java\\GUIInjava\\JavaFx\\Loginpage\\logo.png"));
         } catch (Exception e) {
             // TODO: handle exception
         }
-
+        
         newStage.show();
+        
+      
     }
     
-
-
-
-
-
-
     //main method
     public static void main(String[] args) {
         launch(args);

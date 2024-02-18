@@ -6,6 +6,48 @@
     "configurations": [
         {
             "type": "java",
+            "name": "JDBC",
+            "request": "launch",
+            "mainClass": "JDBC.JDBC",
+            "projectName": "java_3f78094"
+        },
+        {
+            "type": "java",
+            "name": "infiniteLoop",
+            "request": "launch",
+            "mainClass": "infiniteLoop",
+            "projectName": "java_3f78094"
+        },
+        {
+            "type": "java",
+            "name": "externalSort",
+            "request": "launch",
+            "mainClass": "DSA_In_java.Sorting.externalSort",
+            "projectName": "java_3f78094"
+        },
+        {
+            "type": "java",
+            "name": "radixSort",
+            "request": "launch",
+            "mainClass": "DSA_In_java.Sorting.radixSort",
+            "projectName": "java_3f78094"
+        },
+        {
+            "type": "java",
+            "name": "heapSort",
+            "request": "launch",
+            "mainClass": "DSA_In_java.Sorting.heapSort",
+            "projectName": "java_3f78094"
+        },
+        {
+            "type": "java",
+            "name": "heapDeletionArray",
+            "request": "launch",
+            "mainClass": "heapDeletionArray",
+            "projectName": "java_3f78094"
+        },
+        {
+            "type": "java",
             "name": "heap_using_array",
             "request": "launch",
             "mainClass": "java_programs.heap_using_array",
